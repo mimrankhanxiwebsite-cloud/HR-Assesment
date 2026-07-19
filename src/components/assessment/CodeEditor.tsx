@@ -1,15 +1,17 @@
 import { useState } from 'react'
 import Editor from '@monaco-editor/react'
 import { useAssessmentStore } from '@/store/assessmentStore'
+import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Play, CheckCircle, XCircle, Loader2 } from 'lucide-react'
 
 interface CodeEditorProps {
   questionId: string
   initialCode: string
+  expectedOutput?: string
 }
 
-export default function CodeEditor({ questionId, initialCode }: CodeEditorProps) {
+export default function CodeEditor({ questionId, initialCode, expectedOutput }: CodeEditorProps) {
   const { setAnswer } = useAssessmentStore()
   const [code, setCode] = useState(initialCode)
   const [language, setLanguage] = useState('javascript')
@@ -29,14 +31,22 @@ export default function CodeEditor({ questionId, initialCode }: CodeEditorProps)
     setOutput(null)
     setTestResults(null)
     
-    // In a real implementation, this would call our Supabase Edge Function
-    // which then calls the Piston API to securely execute the code.
-    // For demonstration, we'll mock a successful execution delay:
-    setTimeout(() => {
+    try {
+      // Call our Supabase Edge Function which securely invokes the Piston API
+      const { data, error } = await supabase.functions.invoke('code-executor', {
+        body: { code, language, expected_output: expectedOutput },
+      })
+
+      if (error) throw new Error(error.message)
+
+      setOutput(data.output || data.stderr || 'No output')
+      setTestResults({ passed: data.passed ? 1 : 0, total: 1, executionTime: data.executionTime })
+    } catch (err: any) {
+      setOutput(`Execution error: ${err.message}`)
+      setTestResults({ passed: 0, total: 1 })
+    } finally {
       setIsExecuting(false)
-      setOutput("Running test cases...\nTest 1: Passed\nTest 2: Passed\nAll tests passed successfully!")
-      setTestResults({ passed: 2, total: 2 })
-    }, 1500)
+    }
   }
 
   return (
