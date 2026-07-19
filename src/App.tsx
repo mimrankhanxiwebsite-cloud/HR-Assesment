@@ -13,6 +13,10 @@ import CandidateLayout from './components/layout/CandidateLayout'
 import OrgLayout from './components/layout/OrgLayout'
 import AdminLayout from './components/layout/AdminLayout'
 
+// Public Pages
+import LandingPage from './pages/LandingPage'
+import Pricing from './pages/Pricing'
+
 // Candidate Pages
 import CandidateDashboard from './pages/candidate/Dashboard'
 import Profile from './pages/candidate/Profile'
@@ -35,23 +39,11 @@ import AdminDashboard from './pages/admin/Dashboard'
 import UserManagement from './pages/admin/UserManagement'
 import QuestionBank from './pages/admin/QuestionBank'
 
-// Public
-import Pricing from './pages/Pricing'
-
 export default function App() {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route path="/" element={
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500 text-white">
-          <h1 className="text-6xl font-extrabold tracking-tight mb-4">Technical Assessment Platform</h1>
-          <p className="text-brand-100 text-xl mb-8">AI-powered candidate screening & skill benchmarking</p>
-          <div className="flex gap-4">
-            <a href="/login" className="bg-white text-brand-700 px-8 py-3 rounded-lg font-bold hover:bg-brand-50 transition-colors">Login</a>
-            <a href="/pricing" className="border border-white/40 text-white px-8 py-3 rounded-lg font-bold hover:bg-white/10 transition-colors">View Pricing</a>
-          </div>
-        </div>
-      } />
+      <Route path="/" element={<LandingPage />} />
       <Route path="/pricing" element={<Pricing />} />
 
       {/* Auth Routes */}
