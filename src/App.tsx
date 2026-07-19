@@ -38,6 +38,7 @@ import Analytics from './pages/organization/Analytics'
 import AdminDashboard from './pages/admin/Dashboard'
 import UserManagement from './pages/admin/UserManagement'
 import QuestionBank from './pages/admin/QuestionBank'
+import SubscriptionManagement from './pages/admin/SubscriptionManagement'
 
 export default function App() {
   return (
@@ -78,7 +79,7 @@ export default function App() {
           <Route path="/org/candidates" element={<CandidateSearch />} />
           <Route path="/org/analytics" element={<Analytics />} />
           <Route path="/org/team" element={<div className="p-8"><h1 className="text-2xl font-bold">Team Management</h1><p className="text-muted-foreground mt-2">Manage your recruiters and hiring managers.</p></div>} />
-          <Route path="/org/subscription" element={<Pricing />} />
+          <Route path="/org/subscription" element={<SubscriptionManagement />} />
         </Route>
       </Route>
 
@@ -90,7 +91,7 @@ export default function App() {
           <Route path="/admin/question-bank" element={<QuestionBank />} />
           <Route path="/admin/assessments" element={<div className="p-8 text-slate-100"><h1 className="text-2xl font-bold text-white">Assessment Builder</h1></div>} />
           <Route path="/admin/organizations" element={<div className="p-8 text-slate-100"><h1 className="text-2xl font-bold text-white">Organizations</h1></div>} />
-          <Route path="/admin/subscriptions" element={<div className="p-8 text-slate-100"><h1 className="text-2xl font-bold text-white">Subscriptions</h1></div>} />
+          <Route path="/admin/subscriptions" element={<SubscriptionManagement />} />
           <Route path="/admin/analytics" element={<div className="p-8 text-slate-100"><h1 className="text-2xl font-bold text-white">Admin Analytics</h1></div>} />
           <Route path="/admin/audit-logs" element={<div className="p-8 text-slate-100"><h1 className="text-2xl font-bold text-white">Audit Logs</h1></div>} />
         </Route>
